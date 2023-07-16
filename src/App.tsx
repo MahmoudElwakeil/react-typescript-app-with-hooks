@@ -26,7 +26,6 @@ function App() {
   const [user, setUser] = React.useState(_user);
 
   function showAlertFromApp(msg: string) {
-    console.log("Log from App Component: " + msg);
     alert("ShowAlert from App Component: " + msg)
   }
   /*
