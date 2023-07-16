@@ -10,7 +10,7 @@ import LocalStorageService from "../services/local-storage-service";
 
 function NavBar() {
   const [theme, setTheme] = React.useState("light");
-  const { currentUser, setCurrentUser } = React.useContext(UserContext);
+  const { currentUser, setCurrentUser, showAlert } = React.useContext(UserContext);
 
   /*
   const [current, setCurrent] = React.useState<UserViewModel>(
@@ -25,6 +25,7 @@ function NavBar() {
   }
 
   function changeLanguage() {
+    showAlert("Alert From Nav Bar...");
     i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
     new LocalStorageService().setLanguage(i18n.language);
     window.location.reload();

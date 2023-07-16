@@ -3,8 +3,11 @@ import MoviesService from "../services/movies.service";
 import Movie from "../models/movie-view-mode";
 import Like from "./like";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 function MoviesComponent() {
+  const { showAlert } = React.useContext(UserContext);
+
   const [movies, setMovies] = React.useState<Movie[]>([]);
   const _moviesService: MoviesService = new MoviesService();
 
@@ -15,6 +18,7 @@ function MoviesComponent() {
   function deleteMovie(movieId: string) {
     const newMovies = movies.filter((m) => m._id !== movieId);
     setMovies(newMovies);
+    showAlert("Movie Deleted...");
   }
 
   function toggleLiked(movieId: string) {
@@ -24,6 +28,7 @@ function MoviesComponent() {
     if (_movie) {
       _movie.liked = !_movie?.liked;
       setMovies(newMovies);
+      showAlert("Movie Toggle Liked...");
     }
   }
 

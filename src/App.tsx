@@ -1,5 +1,4 @@
-import React, { createContext } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import NavBar from "./components/navbar.component";
 import Counters from "./components/counters.component";
@@ -10,28 +9,37 @@ import Home from "./components/home";
 import LoginForm from "./components/login-form";
 import RegisterForm from "./components/register-form";
 import { Route } from "react-router-dom";
-import UserViewModel from "./models/user-view-model";
+import UserViewModel from './models/user-view-model';
 import Posts from "./components/posts.component";
 import TODoList from "./components/todo-list";
 
+
 export const UserContext = React.createContext({
   currentUser: {},
-  setCurrentUser: (user: UserViewModel) => { }
+  setCurrentUser: (user: UserViewModel) => { }, // a function signature
+  showAlert: (msg: string) => { }
 });
+
 
 function App() {
   const _user: UserViewModel = { name: "Mahmoud", title: "Eng" };
   const [user, setUser] = React.useState(_user);
 
-  function setUserFromHere(usr: UserViewModel) {
-    alert("Set user from App ");
-    setUser(usr);
+  function showAlertFromApp(msg: string) {
+    console.log("Log from App Component: " + msg);
+    alert("ShowAlert from App Component: " + msg)
   }
+  /*
+  const userContextData = {
+    currentUser: {},
+    setCurrentUser: (user: UserViewModel) => { } // a function signature
+  };
+  */
+
   return (
-    <>
-      <UserContext.Provider value={{ currentUser: user, setCurrentUser: setUser }}>
-        <NavBar />
-      </UserContext.Provider>
+
+    <UserContext.Provider value={{ currentUser: user, setCurrentUser: setUser, showAlert: showAlertFromApp }}>  {/* value= {userContextData} */}
+      <NavBar />
 
       <main className="container-fluid bg-light">
         <div className="routes">
@@ -75,7 +83,9 @@ function App() {
           </switch>
         </div>
       </main>
-    </>
+
+    </UserContext.Provider>
+
   );
 }
 
